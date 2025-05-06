@@ -6,11 +6,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="player_stats")
+@Table(name="player_statistics")
 public class Player {
 
     @Id
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     private String name;
 
     private String nation;
@@ -19,9 +19,7 @@ public class Player {
 
     private Integer age;
 
-    private Integer matches_played;
-
-    private Integer starts;
+    private Double matches_played;
 
     private Double minutes_played;
 
@@ -35,27 +33,20 @@ public class Player {
 
     private Double red_cards;
 
-    private Double expected_goals;
-
-    private Double expected_assists;
-
     private String team_name;
 
-    public Player(String name, String nation, String position, Integer age, Integer matches_played, Integer starts, Double minutes_played, Double goals, Double assists, Double penalties_scored, Double yellow_cards, Double red_cards, Double expected_goals, Double expected_assists, String team_name) {
+    public Player(String name, String nation, String position, Integer age, Double matches_played, Double minutes_played, Double goals, Double assists, Double penalties_scored, Double yellow_cards, Double red_cards, String team_name) {
         this.name = name;
         this.nation = nation;
         this.position = position;
         this.age = age;
         this.matches_played = matches_played;
-        this.starts = starts;
         this.minutes_played = minutes_played;
         this.goals = goals;
         this.assists = assists;
         this.penalties_scored = penalties_scored;
         this.yellow_cards = yellow_cards;
         this.red_cards = red_cards;
-        this.expected_goals = expected_goals;
-        this.expected_assists = expected_assists;
         this.team_name = team_name;
     }
 
@@ -99,20 +90,12 @@ public class Player {
         this.age = age;
     }
 
-    public Integer getMatches_played() {
+    public Double getMatches_played() {
         return matches_played;
     }
 
-    public void setMatches_played(Integer mp) {
+    public void setMatches_played(Double mp) {
         this.matches_played = mp;
-    }
-
-    public Integer getStarts() {
-        return starts;
-    }
-
-    public void setStarts(Integer starts) {
-        this.starts = starts;
     }
 
     public Double getMinutes_played() {
@@ -161,22 +144,6 @@ public class Player {
 
     public void setRed_cards(Double crlr) {
         this.red_cards = crlr;
-    }
-
-    public Double getExpected_goals() {
-        return expected_goals;
-    }
-
-    public void setExpected_goals(Double xg) {
-        this.expected_goals = xg;
-    }
-
-    public Double getExpected_assists() {
-        return expected_assists;
-    }
-
-    public void setExpected_assists(Double xag) {
-        this.expected_assists = xag;
     }
 
     public String getTeam_name() {

@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.Normalizer;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,9 +29,20 @@ public class PlayerService {
     }
 
     public List<Player> getPlayersByName(String searchText) {
+        String normalizedSearch = normalize(searchText);
+
         return playerRepository.findAll().stream()
-                .filter(player -> player.getName().toLowerCase().contains(searchText.toLowerCase()))
+                .filter(player -> {
+                    String normalizedName = normalize(player.getName());
+                    return normalizedName.contains(normalizedSearch);
+                })
                 .collect(Collectors.toList());
+    }
+
+    private String normalize(String input) {
+        if (input == null) return "";
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toLowerCase();
     }
 
     public List<Player> getPlayersbyPosition(String searchText) {
